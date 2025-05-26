@@ -1,8 +1,6 @@
 from fastapi import APIRouter
-from pdf_analyzer.dependencies import SessionDep, DocumentSvcDep, AISvcDep, ChatSvcDep
-from pdf_analyzer.models import Chat, ChatFileLink, Message, SenderType
+from pdf_analyzer.dependencies import SessionDep, ChatSvcDep
 from pdf_analyzer.schemas import ChatCreate, ChatRead, MessageCreate, MessageRead
-from sqlmodel import select
 from uuid import UUID
 
 router = APIRouter(prefix="/chats", tags=["chats"])

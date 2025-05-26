@@ -5,7 +5,7 @@ from langchain_core.documents import Document
 from langchain_text_splitters.base import TextSplitter
 from pdf_analyzer.models import File
 from dataclasses import dataclass
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from uuid import UUID
 
 

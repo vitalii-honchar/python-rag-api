@@ -13,13 +13,9 @@ async def upload_file(
     file: UploadFile, name: str, session: SessionDep, document_svc: DocumentSvcDep
 ) -> UUID:
     db_file = File(name=name, content=await file.read())
-    session.add(db_file)
-    session.commit()
-    session.refresh(db_file)
+    res = await document_svc.save(session, db_file)
 
-    await document_svc.save(db_file)
-
-    return db_file.id
+    return res.id
 
 
 @router.get("/", response_model=list[FileRead])

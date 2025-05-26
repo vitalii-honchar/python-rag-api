@@ -5,6 +5,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
 from pdf_analyzer.services import DocumentService, AIService
 from langchain.chat_models import init_chat_model
+from pdf_analyzer.repositories.files import FileRepository
 
 
 class AppSettings(BaseSettings):
@@ -40,7 +41,10 @@ class AppContext:
             use_jsonb=True,
             async_mode=True,
         )
-        self.document_svc = DocumentService(self.vector_store, self.text_splitter)
+        self.file_repository = FileRepository()
+        self.document_svc = DocumentService(
+            self.vector_store, self.text_splitter, self.file_repository
+        )
         self.llm = init_chat_model(
             "gpt-4o-mini", model_provider="openai", api_key=settings.openai_api_key
         )

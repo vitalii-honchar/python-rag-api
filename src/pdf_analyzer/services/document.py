@@ -5,7 +5,9 @@ from langchain_core.documents import Document
 from langchain_text_splitters.base import TextSplitter
 from pdf_analyzer.models import File
 from dataclasses import dataclass
+from sqlmodel import Session
 from langchain_community.document_loaders import PyPDFLoader
+from pdf_analyzer.repositories.files import FileRepository
 from uuid import UUID
 
 
@@ -14,12 +16,17 @@ class DocumentService:
 
     vector_store: VectorStore
     text_splitter: TextSplitter
+    file_repository: FileRepository
 
-    async def save(self, file: File):
+    async def save(self, session: Session, file: File) -> File:
+        file = self.file_repository.create_file(session, file)
+
         documents = self.__convert_to_documents(file)
         all_splits = self.text_splitter.split_documents(documents)
         self.__add_metadata(all_splits, file)
         await self.vector_store.aadd_documents(all_splits)
+
+        return file
 
     async def search(self, text: str, file_ids: list[UUID] = []) -> list[Document]:
         documents_filter = None

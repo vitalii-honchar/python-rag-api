@@ -5,7 +5,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
 from pdf_analyzer.services import DocumentService, AIService
 from langchain.chat_models import init_chat_model
-from pdf_analyzer.repositories.files import FileRepository
+from pdf_analyzer.repositories.file import FileRepository
 
 
 class AppSettings(BaseSettings):

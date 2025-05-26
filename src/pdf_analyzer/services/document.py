@@ -7,7 +7,7 @@ from pdf_analyzer.models import File
 from dataclasses import dataclass
 from sqlmodel import Session
 from langchain_community.document_loaders import PyPDFLoader
-from pdf_analyzer.repositories.files import FileRepository
+from pdf_analyzer.repositories.file import FileRepository
 from uuid import UUID
 
 

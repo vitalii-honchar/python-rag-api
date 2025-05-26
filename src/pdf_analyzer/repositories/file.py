@@ -1,6 +1,5 @@
 from pdf_analyzer.models import File
-from sqlmodel import Session
-from sqlmodel import select
+from sqlmodel import Session, select
 from typing import Sequence
 
 

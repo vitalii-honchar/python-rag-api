@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from langchain_core.language_models import BaseChatModel
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
@@ -36,5 +35,5 @@ class AIService:
         data = "\n\n".join(doc.page_content for doc in docs)
         prompt = prompt_template.invoke({"text": question, "data": data})
         llm_result = self.structured_llm.invoke(prompt)
-        
+
         return Output.model_validate(llm_result).answer if llm_result else None

@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from pdf_analyzer.schemas.file import FileRead
 from pdf_analyzer.models import SenderType
 from uuid import UUID
 from datetime import datetime

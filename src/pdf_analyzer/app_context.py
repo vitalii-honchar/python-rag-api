@@ -1,8 +1,6 @@
 from sqlmodel import create_engine
-from sqlalchemy.engine import Engine
 from pydantic_settings import BaseSettings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.vectorstores import VectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
 from pdf_analyzer.services import DocumentService, AIService
@@ -31,7 +29,7 @@ class AppContext:
             add_start_index=True,
         )
         self.embeddings = OpenAIEmbeddings(
-            api_key=settings.openai_api_key, model=settings.embedding_model # type: ignore
+            api_key=settings.openai_api_key, model=settings.embedding_model  # type: ignore
         )
         self.vector_store = PGVector(
             collection_name=settings.vector_store_collection_name,
@@ -50,4 +48,4 @@ class AppContext:
 
 
 def create_app_context() -> AppContext:
-    return AppContext(AppSettings()) # type: ignore
+    return AppContext(AppSettings())  # type: ignore

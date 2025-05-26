@@ -3,7 +3,7 @@ from pdf_analyzer.dependencies import SessionDep, DocumentSvcDep, AISvcDep
 from pdf_analyzer.models import Chat, ChatFileLink, Message, SenderType
 from pdf_analyzer.schemas import ChatCreate, ChatRead, MessageCreate, MessageRead
 from sqlmodel import select
-from uuid import UUID, uuid4
+from uuid import UUID
 
 router = APIRouter(prefix="/chats", tags=["chats"])
 
@@ -65,5 +65,5 @@ async def send_message(
 @router.get("/{chat_id}/messages", response_model=list[MessageRead])
 async def get_messages(chat_id: UUID, session: SessionDep):
     return session.exec(
-        select(Message).where(Message.chat_id == chat_id).order_by(Message.timestamp) # type: ignore
+        select(Message).where(Message.chat_id == chat_id).order_by(Message.timestamp)  # type: ignore
     ).all()

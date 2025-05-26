@@ -47,11 +47,16 @@ class AppContext:
         self.document_svc = DocumentService(
             self.vector_store, self.text_splitter, self.file_repository
         )
-        self.chat_svc = ChatService(self.chat_repository, self.message_repository)
         self.llm = init_chat_model(
             "gpt-4o-mini", model_provider="openai", api_key=settings.openai_api_key
         )
         self.ai_svc = AIService(self.llm)
+        self.chat_svc = ChatService(
+            self.chat_repository,
+            self.message_repository,
+            self.ai_svc,
+            self.document_svc,
+        )
 
 
 def create_app_context() -> AppContext:

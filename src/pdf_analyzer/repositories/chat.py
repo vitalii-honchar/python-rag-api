@@ -6,7 +6,7 @@ from typing import Sequence
 
 class ChatRepository:
 
-    def create_chat(self, session: Session, chat: Chat, file_ids: list[UUID]) -> Chat:
+    def create(self, session: Session, chat: Chat, file_ids: list[UUID]) -> Chat:
         session.add(chat)
 
         for file_id in file_ids:

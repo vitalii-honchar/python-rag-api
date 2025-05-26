@@ -3,9 +3,9 @@ from pydantic_settings import BaseSettings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
-from pdf_analyzer.services import DocumentService, AIService
+from pdf_analyzer.services import DocumentService, AIService, ChatService
 from langchain.chat_models import init_chat_model
-from pdf_analyzer.repositories.file import FileRepository
+from pdf_analyzer.repositories import FileRepository, ChatRepository, MessageRepository
 
 
 class AppSettings(BaseSettings):
@@ -42,9 +42,12 @@ class AppContext:
             async_mode=True,
         )
         self.file_repository = FileRepository()
+        self.chat_repository = ChatRepository()
+        self.message_repository = MessageRepository()
         self.document_svc = DocumentService(
             self.vector_store, self.text_splitter, self.file_repository
         )
+        self.chat_svc = ChatService(self.chat_repository, self.message_repository)
         self.llm = init_chat_model(
             "gpt-4o-mini", model_provider="openai", api_key=settings.openai_api_key
         )

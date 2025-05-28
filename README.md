@@ -2,6 +2,8 @@
 
 This repository contains a Python implementation of a Retrieval-Augmented Generation (RAG) API.
 
+Created for a blog post: https://vitaliihonchar.com/insights/python-rag-api
+
 ## Run Locally
 
 1. Run docker compose: `docker compose up -d`
